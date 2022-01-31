@@ -2,8 +2,11 @@
   <div class="ms_boxdisco">
       <img :src="info.poster" alt="">
       <h4>{{info.title}}</h4>
-      <p>{{info.author}}</p>
-      <p>{{info.year}}</p>
+      <div>
+        <p>{{info.author}}</p>
+        <p>{{info.year}}</p>
+      </div>
+      
   </div>
 </template>
 

@@ -65,6 +65,7 @@ export default {
 
         .container{
           padding: 50px 0px;
+          text-align: center;
         }
     }
 </style>

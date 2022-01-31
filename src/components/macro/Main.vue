@@ -1,13 +1,14 @@
 <template>
   <div class="ms_main">
     <div class="container">
-        <div class="row">
+        <div v-if="!loading" class="row">
           <ListaDischi
           v-for="(element,index) in dischiArray"
           :key="index"
           :info="element"
           class=" col-12 col-sm-6 col-lg-2"/>
         </div>
+        <Loader v-else />
     </div>
   </div>
   
@@ -16,10 +17,13 @@
 <script>
 import axios from "axios";
 import ListaDischi from "../common/ListaDischi.vue"
+import Loader from "../common/Loading.vue"
+
 export default {
   name: 'Main',
   components: {
     ListaDischi,
+    Loader
   },
   data() {
         return {
@@ -39,7 +43,7 @@ export default {
                 .then( (risposta) => {
                     // handle success
                     this.dischiArray = risposta.data.response;
-                    console.log(this.dischiArray)
+                    this.loading = false;
                     
                     
                 })

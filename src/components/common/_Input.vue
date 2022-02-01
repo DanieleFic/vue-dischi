@@ -1,23 +1,25 @@
 <template>
     <div class="box">
     <select v-model="filtra" @change="$emit('cerca', filtra)">
-        <option value="Null">Seleziona</option>
+        <!-- <option v-for="(elemento, i) in artistArray" :key="i" :value="elemento.genre">{{ elemento.genre }}</option> -->
+        <option value="Null">Tutti</option>
         <option value="Rock">Rock</option>
         <option value="Jazz">Jazz</option>
         <option value="Pop">Pop</option>
-        <option value="Metal">Metal</option>
+        <option value="Metal">Metal</option> 
     </select>
 </div>
 </template>
 
-<script>
+<script scoped>
+
 export default {
     name:"Input",
     data(){
         return{
-            filtra:""
+            filtra:"",
         }
-    }
+    },       
 }
 </script>
 

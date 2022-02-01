@@ -4,6 +4,9 @@
       <Input
       @cerca="cambioValore"
       />
+      <!-- <InputArtisti
+      @cercaArtisti="cambioValoreAristi"
+      /> -->
         <div v-if="!loading" class="row">
           <ListaDischi
           v-for="(element,index) in filtraGeneri"
@@ -22,20 +25,23 @@ import axios from "axios";
 import ListaDischi from "../common/ListaDischi.vue"
 import Loader from "../common/Loading.vue"
 import Input from "../common/_Input.vue"
+/* import InputArtisti from "../common/InputArtist.vue" */
 
 export default {
   name: 'Main',
   components: {
     ListaDischi,
     Loader,
-    Input
+    Input,
+    /* InputArtisti */
   },
   data() {
         return {
             apiURL: "https://flynn.boolean.careers/exercises/api/array/music",
             dischiArray: [],
             loading: true,
-            valore:""
+            valore:"",
+            /* valoreArtisti:"" */
         }
     },
     created(){
@@ -46,9 +52,9 @@ export default {
         filtraGeneri(){
           if(this.valore == "Null") return this.dischiArray
           
-            return this.dischiArray.filter( (album) => {
+                return this.dischiArray.filter( (album) => {
                 console.log('filtra album');
-                return album.genre.includes(this.valore);
+                return album.genre.includes(this.valore) /* || album.author.includes(this.valoreArtisti) */ ;
             });
         }
     },
@@ -61,8 +67,6 @@ export default {
                     // handle success
                     this.dischiArray = risposta.data.response;
                     this.loading = false;
-                    
-                    
                 })
                 .catch(function (error) {
                     // handle error
@@ -74,10 +78,15 @@ export default {
             console.log(this.valore);  
           }
         },
+        /* cambioValoreAristi(e){
+            this.valoreArtisti = e;
+            console.log(this.valoreArtisti);  
+          },  */
+        }
         /* valueSelect(){
 
         } */
-    }
+
     
 
 </script>

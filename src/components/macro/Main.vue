@@ -1,9 +1,12 @@
 <template>
   <div class="ms_main">
     <div class="container">
+      <Input
+      @cerca="cambioValore"
+      />
         <div v-if="!loading" class="row">
           <ListaDischi
-          v-for="(element,index) in dischiArray"
+          v-for="(element,index) in filtraGeneri"
           :key="index"
           :info="element"
           class=" col-12 col-sm-6 col-lg-2"/>
@@ -18,24 +21,38 @@
 import axios from "axios";
 import ListaDischi from "../common/ListaDischi.vue"
 import Loader from "../common/Loading.vue"
+import Input from "../common/_Input.vue"
 
 export default {
   name: 'Main',
   components: {
     ListaDischi,
-    Loader
+    Loader,
+    Input
   },
   data() {
         return {
             apiURL: "https://flynn.boolean.careers/exercises/api/array/music",
             dischiArray: [],
-            loading: true
+            loading: true,
+            valore:""
         }
     },
     created(){
         this.getAlbum();
         //console.log(this.dischiArray)
     },
+    computed: {
+        filtraGeneri(){
+          if(this.valore == "Null") return this.dischiArray
+          
+            return this.dischiArray.filter( (album) => {
+                console.log('filtra album');
+                return album.genre.includes(this.valore);
+            });
+        }
+    },
+    
     methods: {
         getAlbum(){
             axios
@@ -51,9 +68,18 @@ export default {
                     // handle error
                     console.log(error);
                 });
-        }
+        },
+        cambioValore(event){
+            this.valore = event;
+            console.log(this.valore);  
+          }
+        },
+        /* valueSelect(){
+
+        } */
     }
-}
+    
+
 </script>
 
 <style scoped lang="scss">
